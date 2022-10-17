@@ -1,6 +1,10 @@
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
+#include <rev/CANSparkMax.h>
+
 #include "header.h"
-#include "driverheader.h"
 
 void func() {
-  c_doThing();
+  int x = 1;
+  x /= 5;
+  return;
 }

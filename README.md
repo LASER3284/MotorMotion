@@ -1,23 +1,19 @@
-# WPILib Vendor Template
+# MotorMotion
 
-This is the base WPILib vendor template for 2020. Much of the customizability has been removed for 2020, as it was rarely used, and its easier to just modify the existing one.
+This is an easy-to-use wrapper library around CTRE's [Phoenix](https://api.ctr-electronics.com/phoenix/release/cpp/) library as well as REV's [REVLib](https://codedocs.revrobotics.com/cpp/namespacerev.html) library.
+The goal in this library is to abstract out the main motor controller interaction so you are not constantlly calling low-level functions and doing cookie-cutter math to calculate things like distance travelled/velocity/acceleration/etc.
 
-## Layout
+## Using the Library
 
-The build is split into 3 libraries. A java library is built. This has access to all of wpilib, and also can JNI load the driver library.
+**For right now, only C++ is supported, contact us or make a pull request if you want to work on a Java implementation**
 
-A driver library is built. This should contain all low level code you want to access from both C++, Java and any other text based language. This will not work with LabVIEW. This library has access to the WPILib HAL and wpiutil. This library can only export C symbols. It cannot export C++ symbols at all, and all C symbols must be explicitly listed in the symbols.txt file in the driver folder. JNI symbols must be listed in this file as well. This library however can be written in C++. If you attempt to change this library to have access to all of wpilib, you will break JNI access and it will no longer work.
+In order to get started with this library, you'll want to add it as a [Vendor Library](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html). Please follow the linked guide on adding a third party library, the link you will want to use is `[TODO: INSERT LINK HERE]`. For each release, we also will (automatically (soon)) publish a build on the Release page on the Github page for you to use as an offline install.
 
-A native C++ library is built. This has access to all of wpilib, and access to the driver library. This should implment the standard wpilib interfaces.
+From here, you'll have access to the `TalonFXMotion`, `SparkMaxMotion`, and `TalonSRXMotion` classes by including it in your code.
 
-## Customizing
-For Java, the library name will be the folder name the build is started from, so rename the folder to the name of your choosing. 
+### Examples
+We also have written and included some example code for each of the motor motion classes. You'll be able to view them in the `examples/cpp` folder. Each project should be able to built as it's own robot project and deployed onto your robot (make sure to set your IDs/etc!)
 
-For the native impl, you need to change the library name in the exportsConfigs block of build.gradle, the components block of build.gradle, and the taskList input array name in publish.gradle.
-
-For the driver, change the library name in privateExportsConfigs, the driver name in components, and the driverTaskList input array name. In addition, you'll need to change the `lib library` in the native C++ impl component, and the JNI library name in the JNI java class.
-
-For the maven artifact names, those are all in publish.gradle about 40 lines down.
-
-## Building and editing
-This uses gradle, and uses the same base setup as a standard GradleRIO robot project. This means you build with `./gradlew build`, and can install the native toolchain with `./gradlew installRoboRIOToolchain`. If you open this project in VS Code with the wpilib extension installed, you will get intellisense set up for both C++ and Java.
+## Development
+If you use WPILib VSCode to develop on this plugin, it will probably end up asking you if you want to upgrade the project. Click `No`, otherwise it will try and convert the plugin project into a robot project and break everything.
+If you want to build it (to make sure your code compiles), you can do `./gradlew build` (if you're using WPILib VSCode, The `WPILib: Build Robot Code` command does the same thing). Once you're ready to use it locally, do `./gradlew publish`. This will plop all of the required build files onto `build/repos/`.
