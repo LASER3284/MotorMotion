@@ -88,7 +88,6 @@ namespace laser {
             /**
              * @brief 
              *      Halts the motor as quickly as the open-loop ramp rate allows
-             *      and sets the current state to eIdle
              */
             virtual void Stop();
 
@@ -110,12 +109,23 @@ namespace laser {
 
             /**
              * @brief 
-             *      Returns the velocity the motor is currently spinning at in
+             *      Returns the velocity the wheel is currently spinning at in
              *      meters per second based on the encoder velocity
              * @return 
-             *      units::meters_per_secont_t representing the velocity in m/s
+             *      units::meters_per_second_t representing the velocity in m/s
              */
             virtual units::meters_per_second_t GetActualVelocity();
+
+            /**
+             * @brief 
+             *      Returns the angular velocity the motor shaft is currently 
+             *      spinning at in radians per second based on the encoder 
+             *      velocity
+             * @return 
+             *      units::radians_per_second_t representing the angular 
+             *      velocity in rad/s
+             */
+            virtual units::radians_per_second_t GetActualAngularVelocity();
 
             /**
              * @brief 
@@ -134,6 +144,15 @@ namespace laser {
              *      is liable to be from the setpoint
              */
             virtual units::meters_per_second_t GetVelocityTolerance();
+
+            /**
+             * @brief 
+             *      Returns the tolerance of the velocity in rad/s
+             * @return 
+             *      The max tolerance of the velocity; how far off the actual 
+             *      is liable to be from the setpoint
+             */
+            virtual units::radians_per_second_t GetAngularVelocityTolerance();
 
             /**
              * @brief 
@@ -172,7 +191,7 @@ namespace laser {
              * @param derivative
              *      The desired derivative gain
              * @param feedforward
-             *      The desired FF gain
+             *      The desired feed forward gain
              */
             virtual void SetPIDValues(
                 double /* proportional */, 
@@ -215,6 +234,14 @@ namespace laser {
 
             /**
              * @brief 
+             *      Sets the motor voltage
+             * @param voltage
+             *      units::volt_t representing the motor voltage in Volts
+             */
+            virtual void SetMotorVoltage(units::volt_t /* voltage */);
+
+            /**
+             * @brief 
              *      Returns the motor amperage
              * @return
              *      units::ampere_t representing the motor amperage in Amperes
@@ -232,21 +259,25 @@ namespace laser {
 
             /**
              * @brief 
-             *      Sets the max acceleration in m/s^2 of the motor
-             * @param mps2
-             *      The acceleration of the wheel in 
-             *      units::meters_per_second_squared_t
+             *      Sets the max speed the closed loop controller is allowed to
+             *      reach the setpoint; this will limit how quickly the motor 
+             *      will ramp up/down to the setpoint
+             * @param time
+             *      Time in units::second_t of the fastest time the closed loop
+             *      controller is allowed
              */
-            virtual void SetAcceleration(units::meters_per_second_squared_t /* mps2 */);
+            virtual void SetClosedRampRate(units::second_t /* time */);
 
             /**
              * @brief 
-             *      Sets the max acceleration in rad/s^2 of the motor
-             * @param radps2
-             *      The acceleration of the rotor in 
-             *      units::radians_per_second_squared_t
+             *      Sets the max speed the open loop controller is allowed to 
+             *      set the motor voltage; this will limit how quickly the 
+             *      voltage will ramp
+             * @param time
+             *      Time in units::second_t of the fastest time the open loop 
+             *      controller is allowed
              */
-            virtual void SetAcceleration(units::radians_per_second_squared_t /* radps2 */);
+            virtual void SetOpenRampRate(units::second_t /* time */);
 
             /**
              * @brief 
@@ -278,21 +309,12 @@ namespace laser {
 
             /**
              * @brief 
-             *      Sets the cruise RPM of the motor
-             * @param rpm
-             *      Desired RPM in units::revolutions_per_minute_t
-             */
-            virtual void SetCruiseRPM(units::revolutions_per_minute_t /* rpm */);
-
-            /**
-             * @brief 
              *      Sets the Integral Zone for error in units per millisecond;
-             *      because it doesn't use the Units library for unit checking,
-             *      make sure your units are correct
-             * @param izone
+             *      this is in revolutions of the output shaft only
+             * @param _ISzone
              *      Desired IZone left as a primitive double
              */
-            virtual void SetAccumIZone(double /* izone */);
+            virtual void SetAccumIZone(double /* _izone */);
 
             /**
              * @brief 
@@ -360,44 +382,6 @@ namespace laser {
 
             /**
              * @brief 
-             *      Gets the configured encoder counts per revolution 
-             * @return 
-             *      Integer value representing the number of encoder counts per
-             *      revolution of the output shaft
-             */
-            int GetPulsesPerRev() { return pulsesPerRev; }
-
-            /** 
-             * @brief 
-             *      Returns the Revolutions per Unit of travel
-             * @return 
-             *      The number of revolutions per unit traveled on the output 
-             *      wheel
-             */
-            double GetRevsPerUnit() { return revsPerUnit; }
-
-            /**
-             * @brief 
-             *      Sets the encoder counts per revolution
-             * @return 
-             *      The number of encoder counts per revolution of the output 
-             *      shaft (e.g for a Falcon 500 internal sensor, this would be 
-             *      2048 times the gear ratio)
-             */
-            void SetPulsesPerRev(int newPPR) { pulsesPerRev = newPPR; }
-
-            /**
-             * @brief 
-             *      Sets the Revolutions per Unit of travel
-             * @param newRPU
-             *      The number of revolutions per unit traveled; this is 
-             *      determined through the reciprocal of the circumference of 
-             *      the output wheel
-             */
-            void SetRevsPerUnit(double newRPU) { revsPerUnit = newRPU; }
-
-            /**
-             * @brief 
              *      Returns the setpoint type currently in use; this is 
              *      determined by previously called methods
              * @return 
@@ -443,6 +427,35 @@ namespace laser {
              *      to have occurred
              */
             ErrorEnum GetLastError() { return lastError; }
+
+            /**
+             * @brief 
+             *      Sets the gear ratio to be used for calculations between 
+             *      unit conversions of the wheel and actual motor rotation
+             * @param ratio
+             *      The desired gear ratio as a decimal value (output to input)
+             */
+            void SetGearing(double ratio) { gearing = ratio; }
+
+            /**
+             * @brief 
+             *      Returns the configured gear ratio as a decimal value
+             * @return 
+             *      The gear ratio currently being used to determine how motor 
+             *      rotation correlates to distance and velocity
+             */
+            double GetGearing() { return gearing; }
+
+            /**
+             * @brief 
+             *      Sets the desired wheel diameter, in meters, to be used for 
+             *      calculating distances and velocities
+             * @param diameter
+             *      Desired wheel diameter in units::meter_t
+             */
+            void SetWheelDiameter(units::meter_t diameter) { wheelDiameter = diameter; }
+
+            units::meter_t GetWheelDiameter() { return wheelDiameter; }
 
         protected:
             /**
@@ -525,6 +538,13 @@ namespace laser {
 
             /**
              * @brief 
+             *      Feed forward gain for the closed feedback controller for 
+             *      position
+             */
+            double positionFeedForward;
+
+            /**
+             * @brief 
              *      Maximum allowed error of the setpoint; this should be as 
              *      small as your PID values are accurate
              */
@@ -553,6 +573,13 @@ namespace laser {
 
             /**
              * @brief 
+             *      Feed forward gain for the closed feedback controller for 
+             *      linear velocity
+             */
+            double velocityFeedForward;
+
+            /**
+             * @brief 
              *      Maximum allowed error of the setpoint; this should be as 
              *      small as your PID values are accurate
              */
@@ -578,6 +605,13 @@ namespace laser {
              *      angular velocity
              */
             double avelDerivative;
+
+            /**
+             * @brief 
+             *      Feed forward gain for the closed feedback controller for 
+             *      angular velocity
+             */
+            double avelFeedForward;
 
             /**
              * @brief 
@@ -623,17 +657,16 @@ namespace laser {
 
             /**
              * @brief 
-             *      Revolutions per unit of travel on the output wheel; should 
-             *      be the reciprocal of the circumference of the output wheel
+             *      Gear ratio used to convert from m and m/s to encoder ticks
              */
-            double revsPerUnit;
+            double gearing;
 
             /**
              * @brief 
-             *      Pulses per revolution of the output shaft (e.g for a Falcon
-             *      500, this would be 2048 times the gear ratio)
+             *      Wheel diameter (in meters) used for calculations on distance and 
+             *      velocity
              */
-            int pulsesPerRev;
+            units::meter_t wheelDiameter;
 
             /**
              * @brief 

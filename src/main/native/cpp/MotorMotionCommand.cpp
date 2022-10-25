@@ -114,6 +114,8 @@ void MotorMotionCommand<class ErrorEnum, class MotorType>::Execute() {
 }
 
 void MotorMotionCommand<class ErrorEnum, class MotorType>::End(bool interrupted) {
+    if (interrupted)
+        motion->Set(0);
     return;
 }
 
