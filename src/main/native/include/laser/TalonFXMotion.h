@@ -16,26 +16,49 @@ You should have received a copy of the GNU Lesser General Public License along
 with MotorMotion. If not, see <https://www.gnu.org/licenses/>. 
 */
 
+/**
+ * @file TalonFXMotion.h
+ * @brief 
+ *      This file contains the declaration of the TalonFXMotion class, which 
+ *      implements MotorMotion for TalonFX/Falcon 500
+ */
 #pragma once
 
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Timer.h>
 #include "laser/MotorMotion.h"
-
-///////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////
 
 namespace laser {
 
+/**
+ * @namespace talonfx
+ * @brief 
+ *      The namespace containing TalonFXMotion implementation
+ */
 namespace talonfx {
 
+    /**
+     * @namespace defaults
+     * @brief 
+     *      This namespace is meant to contain defaults and constants for the 
+     *      TalonFXMotion class implementation
+     */
     namespace defaults {
+        /**
+         * @brief 
+         *      The number of sensor units per revolution of the input shaft
+         */
         constexpr double countsPerRev = 2048.0;
     } // namespace defaults
 
-    ////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * @class TalonFXMotion
+     * @brief 
+     *      This is the declaration of the TalonFXMotion class, which
+     *      implements MotorMotion
+     */
     class TalonFXMotion : public MotorMotion<ctre::phoenix::ErrorCode, ctre::phoenix::motorcontrol::can::WPI_TalonFX> {
         public:
             /**

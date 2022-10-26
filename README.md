@@ -7,7 +7,7 @@ The goal in this library is to abstract out the main motor controller interactio
 
 **For right now, only C++ is supported, contact us or make a pull request if you want to work on a Java implementation**
 
-In order to get started with this library, you'll want to add it as a [Vendor Library](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html). Please follow the linked guide on adding a third party library, the link you will want to use is `[TODO: INSERT LINK HERE]`. For each release, we also will (automatically (soon)) publish a build on the Release page on the Github page for you to use as an offline install.
+In order to get started with this library, you'll want to add it as a [Vendor Library](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html). **It is also important to install REVLib, CTRE Phoenix, and WPILib New Commands, otherwise the library won't be able to access the APIs for the actual motors.** Please follow the linked guide on adding a third party library, the link you will want to use is `[TODO: INSERT LINK HERE]`. For each release, we also will (automatically (soon)) publish a build on the Release page on the Github page for you to use as an offline install.
 
 From here, you'll have access to the `TalonFXMotion`, `SparkMaxMotion`, and `TalonSRXMotion` classes by including it in your code.
 
@@ -49,20 +49,19 @@ Thomas Iliff (2022-present)
 * Usage of Units library through WPILib
 * Configurable motor behavior
   * Limit switch support (through the motor controller)
-  * Soft limit support
   * Linear velocity and position based on wheel size and gear ratio
 
 ### Planned Features
 * Support for TalonSRX brushed DC motor controller
 * Support for external limit switches
 * Support for external encoders
+* Support for simulation
+* Soft limits
 
 ### TODO
 * Fix build errors
-  * Fix laser/MotorMotion.h
-  * Fix laser/TalonFXMotion.h
   * Fix laser/SparkMaxMotion.h
-  * Fix cpp files
+  * Fix SparkMaxMotion.cpp
 * Document code
   * Comments
   * Documentation files

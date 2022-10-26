@@ -32,6 +32,7 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 #include <units/acceleration.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
+////////////////////////////////////////////////////////////////////////////////
 
 namespace laser {
     /**
