@@ -30,9 +30,16 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonFX.h>
 #include <rev/CANSparkMax.h>
 #include "laser/MotorMotion.h"
+////////////////////////////////////////////////////////////////////////////////
 
 namespace laser {
 
+/**
+ * @namespace commands
+ * @brief 
+ *      This namespace contains command based implementation of MotorMotion 
+ *      using a state machine
+ */
 namespace commands {
     /** 
      * @enum State

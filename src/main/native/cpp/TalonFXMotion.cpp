@@ -19,7 +19,7 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 #include "laser/TalonFXMotion.h"
 
 using namespace laser::talonfx;
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 TalonFXMotion::TalonFXMotion(int devID, double ratio = 1.0, units::meter_t diameter = 1.0_m) {
     deviceID = devID;
@@ -30,8 +30,12 @@ TalonFXMotion::TalonFXMotion(int devID, double ratio = 1.0, units::meter_t diame
     // A setpoint must be specified before one can be used within the class
     setpointType = eNone;
 
+    // Limit switches must be configured, otherwise they won't be used
     isFwdLimitSwitchNO = true;
     isRevLimitSwitchNO = true;
+
+    // Reset the motor
+    Reset();
 }
 
 TalonFXMotion::~TalonFXMotion() {

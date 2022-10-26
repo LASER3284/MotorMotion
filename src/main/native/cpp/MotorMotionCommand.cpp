@@ -19,6 +19,7 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 #include "laser/MotorMotionCommand.h"
 
 using namespace laser::commands;
+////////////////////////////////////////////////////////////////////////////////
 
 MotorMotionCommand<class ErrorEnum, class MotorType>::MotorMotionCommand(MotorMotion<ErrorEnum, MotorType>* motionInstance, State action, units::second_t timeout = 0.0_s, double speed = 0.5) {
     motion = motionInstance;
