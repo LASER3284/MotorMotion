@@ -21,7 +21,8 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 using namespace laser::commands;
 ////////////////////////////////////////////////////////////////////////////////
 
-MotorMotionCommand<class ErrorEnum, class MotorType>::MotorMotionCommand(MotorMotion<ErrorEnum, MotorType>* motionInstance, State action, units::second_t timeout = 0.0_s, double speed = 0.5) {
+template <class ErrorEnum, class MotorType>
+MotorMotionCommand<ErrorEnum, MotorType>::MotorMotionCommand(MotorMotion<ErrorEnum, MotorType>* motionInstance, State action, units::second_t timeout, double speed) {
     motion = motionInstance;
     currentState = action;
     timer = new frc::Timer();
@@ -30,18 +31,21 @@ MotorMotionCommand<class ErrorEnum, class MotorType>::MotorMotionCommand(MotorMo
     fwdHomeSpeed = -speed;
 }
 
-MotorMotionCommand<class ErrorEnum, class MotorType>::~MotorMotionCommand() {
+template <class ErrorEnum, class MotorType>
+MotorMotionCommand<ErrorEnum, MotorType>::~MotorMotionCommand() {
     delete timer;
 
     timer = nullptr;
 }
 
-void MotorMotionCommand<class ErrorEnum, class MotorType>::Initialize() {
+template <class ErrorEnum, class MotorType>
+void MotorMotionCommand<ErrorEnum, MotorType>::Initialize() {
     timer->Start();
     startTime = timer->Get();
 }
 
-void MotorMotionCommand<class ErrorEnum, class MotorType>::Execute() {
+template <class ErrorEnum, class MotorType>
+void MotorMotionCommand<ErrorEnum, MotorType>::Execute() {
     // State machine
     switch(currentState) {
         case eIdle:
@@ -113,13 +117,14 @@ void MotorMotionCommand<class ErrorEnum, class MotorType>::Execute() {
             break;
     } // switch (currentState)
 }
-
-void MotorMotionCommand<class ErrorEnum, class MotorType>::End(bool interrupted) {
+template <class ErrorEnum, class MotorType>
+void MotorMotionCommand<ErrorEnum, MotorType>::End(bool interrupted) {
     if (interrupted)
         motion->Set(0);
     return;
 }
 
-bool MotorMotionCommand<class ErrorEnum, class MotorType>::IsFinished() {
+template <class ErrorEnum, class MotorType>
+bool MotorMotionCommand<ErrorEnum, MotorType>::IsFinished() {
     return isFinished;
 }

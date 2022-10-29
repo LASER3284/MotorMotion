@@ -21,6 +21,13 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
  * @brief 
  *      This file contains the mostly virtual class MotorMotion, which is 
  *      implemented by other classes.
+ * 
+ * This allows for a common mode of control between different motor controllers 
+ * using a similar API. The class in this file is purely virtual and cannot be 
+ * instantiated; it is implemented through TalonFXMotion and SparkMaxMotion.
+ * @see TalonFXMotion.h
+ * @see SparkMaxMotion.h
+ * @see MotorMotionCommand.h
  */
 #pragma once
 
@@ -32,9 +39,26 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 #include <units/acceleration.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_velocity.h>
+#include <string>
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @brief 
+ *      The namespace used by Camdenton LASER 3284 to differentiate between 
+ *      vendor and non-vendor code.
+ * 
+ * Within this namespace, you will find several classes and namespaces, each of 
+ * which has their own pieces of documentation.
+ */
 namespace laser {
+    /**
+     * @brief
+     *      The version string for MotorMotion.
+     * 
+     * This can be used for diagnostic printing and version checking.
+     */
+    const std::string version = "0.0.1-rc0";
+
     /**
      * @enum SetpointType
      * @brief 
@@ -56,7 +80,19 @@ namespace laser {
      * @class MotorMotion
      * @brief 
      *      A basic, mostly virtual, class that follows a template for the 
-     *      ErrorEnum of the MotorType class
+     *      ErrorEnum of the MotorType class.
+     * 
+     * This class is not meant to be instatiated directly; rather, it is meant 
+     * to be used for abstraction and inheritance. It declares many virtual 
+     * methods that are meant to be implemented by other classes for the 
+     * expressed purpose of knowing what methods it must have.
+     * @warning 
+     *      This class cannot be instantiated, otherwise your code may throw a 
+     *      segmentation fault due to null pointers. Please use TalonFXMotion or
+     *      SparkMaxMotion for this purpose.
+     * @see MotorMotion.h
+     * @see TalonFXMotion
+     * @see SparkMaxMotion
     */
     template <typename ErrorEnum, class MotorType>
     class MotorMotion {
@@ -91,13 +127,6 @@ namespace laser {
              *      Halts the motor as quickly as the open-loop ramp rate allows
              */
             virtual void Stop();
-
-            /**
-             * @brief 
-             *      Clears sticky faults on the motor controller (not typically
-             *      used for REV devices)
-             */
-            virtual void ClearStickyFaults();
 
             /**
              * @brief 
@@ -174,9 +203,16 @@ namespace laser {
 
             /**
              * @brief 
-             *      Sets the maximum ramp rate when in an open feedback loop
+             *      Sets the maximum ramp rate when in an open feedback loop.
+             * 
+             * This does not affect the PIDF controller, but is can be used when
+             * something needs to stop relatively quickly or slowly.
              * @param rate
              *      The ramp rate, in seconds, for the open feedback loop
+             * @deprecated 
+             *      This method is deprecated, please use 
+             *      SetOpenRampRate(units::second_t).
+             * @see SetOpenRampRate()
              */
             virtual void SetOpenLoopRampRate(double /* rate */);
 
@@ -363,14 +399,6 @@ namespace laser {
              *      Pointer to class MotorType
              */
             MotorType* GetMotorPointer() { return motor; }
-
-            /**
-             * @brief 
-             *      Returns the state of the reverse limit switch
-             * @return 
-             *      Boolean value, true = pressed, false = unpressed
-             */
-            bool IsReady() { return isReady; }
 
             /**
              * @brief 
@@ -588,7 +616,7 @@ namespace laser {
 
             /**
              * @brief 
-             *      Proportional gan of the closed feedback controller for 
+             *      Proportional gain of the closed feedback controller for 
              *      angular velocity
              */
             double avelProportional;

@@ -23,6 +23,10 @@ This library makes use of the Units library provided through WPILib, and it is i
 
 We also have written and included some example code for each of the motor motion classes. You'll be able to view them in the `examples/cpp` folder. Each project should be able to built as it's own robot project and deployed onto your robot (make sure to set your IDs/etc!)
 
+## Documentation
+
+There is full API documentation both on our website `[TODO: insert link]` and in the repo under the `../MotorMotion-doc` directory; for the local documentation, you can read it by opening `index.html` in a web browser of your choice. From there, you can navigate throughout the docs of all the header files.
+
 ## Development
 
 If you use WPILib VSCode to develop on this plugin, it will probably end up asking you if you want to upgrade the project. Click `No`, otherwise it will try and convert the plugin project into a robot project and break everything.

@@ -35,16 +35,23 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 namespace laser {
 
 /**
- * @namespace commands
  * @brief 
  *      This namespace contains command based implementation of MotorMotion 
- *      using a state machine
+ *      using a state machine.
+ * 
+ * This is used when using limit switches with a MotorMotion derived class, such
+ * as for a turret, elevator, etc. It can be configured with with a homing 
+ * timeout and a desired percent output on the input shaft. 
  */
 namespace commands {
     /** 
      * @enum State
      * @brief 
-     *      Shared Robot states/commands for Motion
+     *      Motion states/commands.
+     * 
+     * These are used by the state machine to determine what to do. The instance
+     * of MotorMotionCommand will use this to determine what action it should be
+     * performing.
      */
     enum State {
         /** Do nothing */
@@ -63,19 +70,32 @@ namespace commands {
      * @class MotorMotionCommand
      * @brief 
      *      This class is used for controlling a MotorMotion derived class when 
-     *      using limit switches
+     *      using limit switches.
+     * 
+     * It operates through a state machine, which is configured using the 
+     * constructor and the State enum. This can be used to trigger an event 
+     * whenever the command has finished.
+     * @see State
      */
     template <typename ErrorEnum, class MotorType>
-    class MotorMotionCommand : public frc2::CommandHelper<frc2::CommandBase, MotorMotionCommand> {
+    class MotorMotionCommand : public frc2::CommandHelper<frc2::CommandBase, MotorMotionCommand<ErrorEnum, MotorType>> {
         public:
             /**
              * @brief 
              *      MotorMotionCommand constructor; initializes the command 
              *      structure. When the timeout is 0, there will be no timeout
              *      condition.
+             * 
+             * This class uses a state machine, and the desired action is 
+             * specified through the constructor. This can be useful for doing 
+             * an action relating to the limit switches.
              * @param motionInstance
              *      MotorMotion object pointer used for controlling the actual
              *      motor
+             * @warning 
+             *      The motionInstance is specified the way it is so that any 
+             *      MotorMotion derived class can be used; this does not mean 
+             *      that you can instantiate MotorMotion.
              * @param action
              *      State enum type that specifies what the command will 
              *      actually be doing with the motor 
@@ -88,7 +108,7 @@ namespace commands {
              *      sets the reverse (going home) speed to itself and the 
              *      forward (leaving home) speed to the negation of itself
              */
-            MotorMotionCommand(MotorMotion<ErrorEnum, MotorType>* /* motionInstance */, State /* action */, units::second_t /* timeout */, double /* speed */);
+            MotorMotionCommand(MotorMotion<ErrorEnum, MotorType>* /* motionInstance */, State /* action */, units::second_t = 0.0_s /* timeout */, double = 0.5 /* speed */);
 
             /**
              * @brief 
