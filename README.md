@@ -25,7 +25,7 @@ We also have written and included some example code for each of the motor motion
 
 ## Documentation
 
-There is full API documentation both on our website `[TODO: insert link]` and in the repo under the `../MotorMotion-doc` directory; for the local documentation, you can read it by opening `index.html` in a web browser of your choice. From there, you can navigate throughout the docs of all the header files.
+There is full API documentation both on our website `[TODO: insert link]` and under the `../MotorMotion-doc` directory. For local documentation, clone [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) in this repo's root; from there you can run Doxygen from the command line or open Doxywizard an open the local `Doxyfile`. To open local docs, go to `../MotorMotion-doc` and open `index.html`. You can also clone our `docs` branch.
 
 ## Development
 
