@@ -52,14 +52,6 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
  */
 namespace laser {
     /**
-     * @brief
-     *      The version string for MotorMotion.
-     * 
-     * This can be used for diagnostic printing and version checking.
-     */
-    const std::string version = "0.0.1-rc0";
-
-    /**
      * @enum SetpointType
      * @brief 
      *      Which unit and set of PID values to use for reaching the setpoint 

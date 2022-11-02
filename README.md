@@ -25,12 +25,12 @@ We also have written and included some example code for each of the motor motion
 
 ## Documentation
 
-There is full API documentation both on our website `[TODO: insert link]` and under the `../MotorMotion-doc` directory. For local documentation, clone [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) in this repo's root; from there you can run Doxygen from the command line or open Doxywizard an open the local `Doxyfile`. To open local docs, go to `../MotorMotion-doc` and open `index.html`. You can also clone our `docs` branch.
+There is full API documentation both on our website `[TODO: insert link]`.
 
 ## Development
 
 If you use WPILib VSCode to develop on this plugin, it will probably end up asking you if you want to upgrade the project. Click `No`, otherwise it will try and convert the plugin project into a robot project and break everything.
-If you want to build it (to make sure your code compiles), you can do `./gradlew build` (if you're using WPILib VSCode, The `WPILib: Build Robot Code` command does the same thing). Once you're ready to use it locally, do `./gradlew publish`. This will plop all of the required build files onto `build/repos/`.
+If you want to build it (to make sure your code compiles), you can do `./gradlew build` (if you're using WPILib VSCode, the `WPILib: Build Robot Code` command does the same thing). Once you're ready to use it locally, do `./gradlew publish`. This will plop all of the required build files onto `build/repos/`.
 
 ### License
 
@@ -41,7 +41,8 @@ Copyright 2022 Camdenton LASER 3284
 ### Contributors
 
 Charlotte Patton (2022-present),
-Thomas Iliff (2022-present)
+Thomas Iliff (2022-present),
+Nate Franklin (2022-present)
 
 ### Current Features
 * Support for Falcon 500 motors, using the TalonFX motor controller
@@ -54,6 +55,8 @@ Thomas Iliff (2022-present)
 * Configurable motor behavior
   * Limit switch support (through the motor controller)
   * Linear velocity and position based on wheel size and gear ratio
+* Documentation throughout code
+  * Doxygen support
 
 ### Planned Features
 * Support for TalonSRX brushed DC motor controller
@@ -63,10 +66,7 @@ Thomas Iliff (2022-present)
 * Soft limits
 
 ### TODO
-* Fix build errors
-  * Fix laser/SparkMaxMotion.h
-  * Fix SparkMaxMotion.cpp
+* Add SparkMax functionality
 * Document code
   * Comments
-  * Documentation files
 * Test on hardware

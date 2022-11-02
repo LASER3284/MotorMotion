@@ -114,14 +114,14 @@ namespace commands {
              * @brief 
              *      MotorMotionCommand destructor; deletes pointers to prevent
              *      memory leaks, with the exception of the pointer passed to
-             *      the constructor
+             *      the constructor.
              */
             ~MotorMotionCommand();
 
             /**
              * @brief 
              *      Initializes the MotorMotionCommand immediately before 
-             *      execution
+             *      execution.
              */
             void Initialize() override;
 
@@ -129,14 +129,14 @@ namespace commands {
              * @brief 
              *      Main command method that will perform the action specified
              *      in the constructor; it contains a state machine based on 
-             *      the given action
+             *      the given action.
              */
             void Execute() override;
 
             /**
              * @brief 
              *      Finalizes the command so that nothing is left over to cause
-             *      issues
+             *      issues.
              * @param interrupted
              *      Determines if the Execute function was interrupted or if it
              *      ended naturally upon IsFinished returning true
