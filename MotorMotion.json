@@ -1,0 +1,26 @@
+{
+    "fileName": "MotorMotion.json",
+    "name": "PathplannerLib",
+    "version": "0.0.1-rc0",
+    "uuid": "c5724703-68f2-4cc9-840b-9f6421aa506a",
+    "mavenUrls": [
+        "https://motormotion.laser3284.org/repos"
+    ],
+    "jsonUrl": "https://motormotion.laser3284.org/MotorMotion.json",
+    "javaDependencies": [],
+    "jniDependencies": [],
+    "cppDependencies": [
+        {
+            "groupId": "com.laser3284.MotorMotion",
+            "artifactId": "MotorMotion-cpp",
+            "version": "0.0.1-rc0",
+            "libName": "MotorMotion",
+            "headerClassifier": "headers",
+            "sharedLibrary": false,
+            "skipInvalidPlatforms": true,
+            "binaryPlatforms": [
+                "linuxathena"
+            ]
+        }
+    ]
+}
