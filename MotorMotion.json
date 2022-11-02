@@ -1,6 +1,6 @@
 {
     "fileName": "MotorMotion.json",
-    "name": "PathplannerLib",
+    "name": "MotorMotion",
     "version": "0.0.1-rc0",
     "uuid": "c5724703-68f2-4cc9-840b-9f6421aa506a",
     "mavenUrls": [
