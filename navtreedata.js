@@ -55,7 +55,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_motor_motion_8h.html"
+"_motor_motion_8h.html",
+"classlaser_1_1talonfx_1_1_talon_f_x_motion.html#ac0a7df1206574495696c210ca25b1e99"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
