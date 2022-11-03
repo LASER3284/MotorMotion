@@ -1,6 +1,6 @@
 var _motor_motion_command_8h =
 [
-    [ "MotorMotionCommand", "classlaser_1_1commands_1_1_motor_motion_command.html", "classlaser_1_1commands_1_1_motor_motion_command" ],
+    [ "laser::commands::MotorMotionCommand< ErrorEnum, MotorType >", "classlaser_1_1commands_1_1_motor_motion_command.html", "classlaser_1_1commands_1_1_motor_motion_command" ],
     [ "SparkMaxMotionCommand", "_motor_motion_command_8h.html#a6b886c6f8e2280c7bcd71950e868e52a", null ],
     [ "TalonFXMotionCommand", "_motor_motion_command_8h.html#ab8398445a1eebe3e0880f83d60b1783c", null ],
     [ "State", "_motor_motion_command_8h.html#a76d5dc66d5c76af5155ab32439350824", [
