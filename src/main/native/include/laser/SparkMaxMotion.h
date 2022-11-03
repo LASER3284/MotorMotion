@@ -21,6 +21,8 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
  * @brief 
  *      This file contains the declaration of the SparkMaxMotion class, which 
  *      implements MotorMotion for CAN Spark Max
+ * @todo 
+ *      Implement SparkMaxMotion
  */
 #pragma once
 
@@ -31,17 +33,21 @@ with MotorMotion. If not, see <https://www.gnu.org/licenses/>.
 namespace laser {
 
 /**
- * @namespace sparkmax
  * @brief 
  *      This namespace contains the SparkMaxMotion class, which implements 
  *      MotorMotion
  */
 namespace sparkmax {
 
+    /**
+     * @brief 
+     *      This namespace is meant to contain defaults and constants for the 
+     *      SparkMaxMotion class implementation
+     * @todo 
+     *      Fill in based on SparkMaxMotion implementation
+     */
     namespace defaults {
-        /**
-         * TODO: Fill in based on SparkMaxMotion implementation
-         */
+        
     }
 
     /**
@@ -49,11 +55,11 @@ namespace sparkmax {
      * @brief 
      *      This is the declaration of the SparkMaxMotion class, which
      *      implements MotorMotion
+     * @todo 
+     *      Inherit MotorMotion<rev::REVLibError, rev::CANSparkMax>
      */
     class SparkMaxMotion {
-        /**
-         * TODO: Fill in based on MotorMotion
-         */
+        
     };
 
 } // namespace sparkmax

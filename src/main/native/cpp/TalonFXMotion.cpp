@@ -209,7 +209,7 @@ units::meters_per_second_t TalonFXMotion::GetActualVelocity() {
 
     // Sensor units per 100ms -> sensor units per second -> revolutions per 
     // sec, input shaft -> rev per sec, output shaft -> m/s, wheel speed
-    actual = motor->GetSelectedSensorVelocity() * 10 / defaults::countsPerRev / gearing * (wheelDiameter * M_PI);
+    actual = motor->GetSelectedSensorVelocity() * 10 / defaults::countsPerRev / gearing * (wheelDiameter * M_PI) / 1.0_s;
 
     return actual;
 }
@@ -287,13 +287,9 @@ void TalonFXMotion::SetMotorInverted(bool isInverted) {
     motor->SetInverted(isInverted);
 }
 
-void TalonFXMotion::ClearStickyFaults() {
-    // Clears faults that persist across power cycles
-    motor->ClearStickyFaults();
-}
-
 ctre::phoenix::ErrorCode TalonFXMotion::ConfigCurrentLimit(units::ampere_t amps) {
     // good lord, please forgive me for my sins
+    // TODO: make this better
     ctre::phoenix::motorcontrol::SupplyCurrentLimitConfiguration config;
     if (amps == 0_A) {
         config = ctre::phoenix::motorcontrol::SupplyCurrentLimitConfiguration(false, 0, 0, 0);

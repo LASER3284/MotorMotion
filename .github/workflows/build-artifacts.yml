@@ -1,0 +1,39 @@
+name: Build Artifacts
+
+on:
+  push:
+    branches: 
+      - 2022
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    name: Build roboRIO Java/C++ and Linux Desktop
+    runs-on: ubuntu-22.04
+    container: wpilib/roborio-cross-ubuntu:2023-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Install roboRIO toolchain
+        run: ./gradlew installRoboRIOToolchain
+
+      - name: Compile binaries
+        run: ./gradlew build
+
+      - name: Publish
+        run: ./gradlew publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-athena
+          path: "build/repos/releases/com/laser3284/MotorMotion"
+
+  # TODO: Implement windows desktop builds
+  # TODO: Implement macOS desktop builds

@@ -1,0 +1,110 @@
+name: Publish Release
+
+on: 
+  push:
+    branches:
+      # This should always point to the "main" current branch, so that way any push to the main branch publishes a new release
+      - 2022
+  workflow_dispatch:
+
+
+# Grant the github workflow permissions to write files to the repo
+permissions:
+  contents: write
+
+jobs:
+  # Build the code for the roboRIO
+  build-linux:
+    name: Build roboRIO Java/C++ and Linux Desktop
+    runs-on: ubuntu-22.04
+    container: wpilib/roborio-cross-ubuntu:2023-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          submodules: "true"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Install roboRIO toolchain
+        run: ./gradlew installRoboRIOToolchain
+
+      - name: Compile binaries
+        run: ./gradlew build
+
+      - name: Publish
+        run: ./gradlew publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-athena
+          path: "build/repos/releases/com/laser3284/MotorMotion"
+
+  # TODO: Implement windows desktop builds
+  # TODO: Implement macOS desktop builds
+
+  # Build the docs for doxygen
+  build-docs:
+    name: Build doxygen docs
+    runs-on: ubuntu-latest
+    
+    # This requires that the linux build succeed before generating doxygen docs
+    needs: [build-linux]
+
+    steps:
+      - name: Checkout doxygen-awesome-css
+        uses: actions/checkout@v2
+        with:
+          # Checks out https://github.com/jothepro/doxygen-awesome-css from github
+          repository: jothepro/doxygen-awesome-css
+          path: doxygen-awesome-css
+
+      - name: Install doxygen
+        run: sudo apt-get install doxygen graphviz -y
+
+      - name: Generate doxygen via doxyfile
+        run: doxygen
+
+  # Publishes the "clean" docs folder to the "docs" branch
+  publish-docs:
+    name: Publish to docs branch
+    runs-on: ubuntu-latest
+    
+    # Requires a successful build and doxygen
+    needs: [build-linux, build-docs]
+
+    steps:
+      - name: Publish docs folder to docs branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          # We're pushing the changes to our own repo
+          REPO: self
+          BRANCH: docs
+          FOLDER: docs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-github-pages:
+    name: Publish to Github Pages
+    runs-on: ubuntu-latest
+
+    # Both doxygen and linux builds need to succeed before publishing to github.
+    needs: publish-docs
+    
+    steps:
+      - name: Move vendordep JSON file
+        run: sudo mv MotorMotion.json ./docs/
+
+      - name: Move built binaries
+        run: sudo cp -a ./build/repos ./docs/repos
+
+      # Finally push the changes to the gh-pages branch
+      - name: Deploy website to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          enable_jekyll: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
