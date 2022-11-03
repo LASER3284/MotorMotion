@@ -1,6 +1,11 @@
 name: Build Artifacts
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: 
+      - 2022
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-linux:
