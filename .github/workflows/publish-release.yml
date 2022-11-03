@@ -54,6 +54,11 @@ jobs:
     # This requires that the linux build succeed before generating doxygen docs
     needs: [build-linux]
 
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+
     steps:
       - name: Checkout doxygen-awesome-css
         uses: actions/checkout@v2

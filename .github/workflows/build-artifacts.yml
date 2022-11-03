@@ -1,9 +1,6 @@
 name: Build Artifacts
 
 on:
-  push:
-    branches: 
-      - 2022
   pull_request:
   workflow_dispatch:
 
