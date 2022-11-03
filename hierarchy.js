@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "CommandHelper", null, [
+    [ "frc2::CommandHelper", null, [
       [ "laser::commands::MotorMotionCommand< ErrorEnum, MotorType >", "classlaser_1_1commands_1_1_motor_motion_command.html", null ]
     ] ],
     [ "laser::MotorMotion< ErrorEnum, MotorType >", "classlaser_1_1_motor_motion.html", null ],
