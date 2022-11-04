@@ -85,9 +85,17 @@ void TalonFXMotion::SetSetpoint(units::radians_per_second_t avelocity) {
     setpointType = eAngularVelocity;
 }
 
+units::volt_t TalonFXMotion::GetMotorVoltage() {
+    return units::volt_t(motor->GetMotorOutputVoltage());
+}
+
 void TalonFXMotion::SetMotorVoltage(units::volt_t voltage) {
     motor->SetVoltage(voltage);
     motor->Feed();
+}
+
+units::ampere_t TalonFXMotion::GetMotorCurrent() {
+    return units::ampere_t(motor->GetStatorCurrent());
 }
 
 void TalonFXMotion::Stop() {
@@ -166,6 +174,10 @@ void TalonFXMotion::SetAccumIZone(double _izone) {
     motor->Config_IntegralZone(0, izone / gearing * 2048);
 }
 
+void TalonFXMotion::SetPositionSoftLimits(units::meter_t minpos, units::meter_t maxpos ) {
+    throw std::runtime_error("SetPositionSoftLimits currently unimplemented!");
+}
+
 bool TalonFXMotion::IsFwdLimitSwitchPressed() {
     return (
         (isFwdLimitSwitchNO && motor->GetSensorCollection().IsFwdLimitSwitchClosed()) ||
@@ -186,12 +198,16 @@ void TalonFXMotion::Reset() {
     motor->SetSelectedSensorPosition(0);
 }
 
-void TalonFXMotion::SetOpenRampRate(units::second_t time) {
-    motor->ConfigOpenloopRamp((double)time);
+int TalonFXMotion::GetRawEncoderCounts() {
+    return (int)motor->GetSelectedSensorPosition();
 }
 
 void TalonFXMotion::SetClosedRampRate(units::second_t time) {
     motor->ConfigClosedloopRamp((double)time);
+}
+
+void TalonFXMotion::SetOpenRampRate(units::second_t time) {
+    motor->ConfigOpenloopRamp((double)time);
 }
 
 units::meter_t TalonFXMotion::GetActualPosition() {

@@ -187,29 +187,6 @@ namespace laser {
 
             /**
              * @brief 
-             *      Sets the maximum ramp rate when in a closed feedback loop
-             * @param rate
-             *      The ramp rate, in seconds, for the closed feedback loop
-             */
-            virtual void SetClosedLoopRampRate(double /* rate */);
-
-            /**
-             * @brief 
-             *      Sets the maximum ramp rate when in an open feedback loop.
-             * 
-             * This does not affect the PIDF controller, but is can be used when
-             * something needs to stop relatively quickly or slowly.
-             * @param rate
-             *      The ramp rate, in seconds, for the open feedback loop
-             * @deprecated 
-             *      This method is deprecated, please use 
-             *      SetOpenRampRate(units::second_t).
-             * @see SetOpenRampRate()
-             */
-            virtual void SetOpenLoopRampRate(double /* rate */);
-
-            /**
-             * @brief 
              *      Sets the PIDF values for the controller; each setpoint type
              *      has its own PID values, this will feed it to the currently 
              *      active one (default/none: they all get the same PID values)

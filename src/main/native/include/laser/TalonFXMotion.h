@@ -242,38 +242,6 @@ namespace talonfx {
 
             /**
              * @brief 
-             *      Sets the maximum ramp rate when in a closed feedback loop.
-             * 
-             * The maximum rate at which the closed loop controller will reach 
-             * the setpoint will be partially determined through 
-             * PIDF/characterization tuning as well, as certain values may take 
-             * longer to reach the setpoint.
-             * @param rate
-             *      The ramp rate, in seconds, for the closed feedback loop
-             * @deprecated 
-             *      This method is deprecated, please use 
-             *      SetClosedRampRate(units::second_t).
-             * @see SetClosedRampRate()
-             */
-            void SetClosedLoopRampRate(double /* rate */) override;
-
-            /**
-             * @brief 
-             *      Sets the maximum ramp rate when in an open feedback loop.
-             * 
-             * This does not affect the PIDF controller, but is can be used when
-             * something needs to stop relatively quickly or slowly.
-             * @param rate
-             *      The ramp rate, in seconds, for the open feedback loop
-             * @deprecated 
-             *      This method is deprecated, please use 
-             *      SetOpenRampRate(units::second_t).
-             * @see SetOpenRampRate()
-             */
-            void SetOpenLoopRampRate(double /* rate */) override;
-
-            /**
-             * @brief 
              *      Sets the PIDF values for the controller.
              * 
              * Each setpoint type has its own PID values, this method will feed 
