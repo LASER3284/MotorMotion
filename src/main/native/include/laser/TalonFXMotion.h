@@ -70,7 +70,7 @@ namespace talonfx {
     } // namespace defaults
 
     /**
-     * @class TalonFXMotion
+     * @class TalonFXMotion TalonFXMotion.h laser/TalonFXMotion.h
      * @brief 
      *      This is the declaration of the TalonFXMotion class, which
      *      implements MotorMotion.

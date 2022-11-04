@@ -67,7 +67,7 @@ namespace commands {
     }; // enum State
 
     /**
-     * @class MotorMotionCommand
+     * @class MotorMotionCommand MotorMotionCommand.h laser/MotorMotionCommand.h
      * @brief 
      *      This class is used for controlling a MotorMotion derived class when 
      *      using limit switches.

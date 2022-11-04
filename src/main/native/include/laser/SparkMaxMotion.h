@@ -51,7 +51,7 @@ namespace sparkmax {
     }
 
     /**
-     * @class SparkMaxMotion
+     * @class SparkMaxMotion SparkMaxMotion.h laser/SparkMaxMotion.h
      * @brief 
      *      This is the declaration of the SparkMaxMotion class, which
      *      implements MotorMotion

@@ -69,7 +69,7 @@ namespace laser {
     }; // enum SetpointType
 
     /**
-     * @class MotorMotion
+     * @class MotorMotion MotorMotion.h laser/MotorMotion.h
      * @brief 
      *      A basic, mostly virtual, class that follows a template for the 
      *      ErrorEnum of the MotorType class.
