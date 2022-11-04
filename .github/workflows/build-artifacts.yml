@@ -32,6 +32,10 @@ jobs:
           name: linux-athena
           path: "build/repos/releases/com/laser3284/MotorMotion"
 
+      - name: Grant execut permissions to example builder
+        run: chmod +x ./build-examples.sh
+        working-directory: ./examples
+
       - name: Build examples
         run: ./build-examples.sh
         working-directory: ./examples
