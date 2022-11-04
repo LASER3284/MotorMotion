@@ -25,7 +25,7 @@ We also have written and included some example code for each of the motor motion
 
 ## Documentation
 
-There is full API documentation both on our website at [motormotion.laser3284.org](motormotion.laser3284.org).
+There is full API documentation both on our website at [motormotion.laser3284.org](https://motormotion.laser3284.org).
 The docs are also available under the `docs` branch and the full page (including maven repository) is available under the `gh-pages` branch.
 
 ## Development
