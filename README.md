@@ -7,7 +7,7 @@ The goal in this library is to abstract out the main motor controller interactio
 
 **For right now, only C++ is supported, contact us or make a pull request if you want to work on a Java implementation**
 
-In order to get started with this library, you'll want to add it as a [Vendor Library](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html). **It is also important to install REVLib, CTRE Phoenix, and WPILib New Commands, otherwise the library won't be able to access the APIs for the actual motors.** Please follow the linked guide on adding a third party library, the link you will want to use is `[TODO: INSERT LINK HERE]`. For each release, we also will (automatically (soon)) publish a build on the Release page on the Github page for you to use as an offline install.
+In order to get started with this library, you'll want to add it as a [Vendor Library](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html). **It is also important to install REVLib, CTRE Phoenix, and WPILib New Commands, otherwise the library won't be able to access the APIs for the actual motors.** Please follow the linked guide on adding a third party library, the link you will want to use is `motormotion.laser3284.org/MotorMotion.json`. For each release, we also will (automatically (soon)) publish a build on the Release page on the Github page for you to use as an offline install.
 
 From here, you'll have access to the `TalonFXMotion`, `SparkMaxMotion`, and `TalonSRXMotion` classes by including it in your code.
 
@@ -21,11 +21,12 @@ This library makes use of the Units library provided through WPILib, and it is i
 
 ### Examples
 
-We also have written and included some example code for each of the motor motion classes. You'll be able to view them in the `examples/cpp` folder. Each project should be able to built as it's own robot project and deployed onto your robot (make sure to set your IDs/etc!)
+We also have written and included some example code for each of the motor motion classes. You'll be able to view them in the `examples` folder. Each project should be able to built as it's own robot project and deployed onto your robot (make sure to set your IDs/etc!).
 
 ## Documentation
 
-There is full API documentation both on our website `[TODO: insert link]`.
+There is full API documentation both on our website at [motormotion.laser3284.org](motormotion.laser3284.org).
+The docs are also available under the `docs` branch and the full page (including maven repository) is available under the `gh-pages` branch.
 
 ## Development
 

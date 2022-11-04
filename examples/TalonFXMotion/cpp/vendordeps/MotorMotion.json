@@ -4,6 +4,7 @@
     "version": "0.0.1-rc0",
     "uuid": "c5724703-68f2-4cc9-840b-9f6421aa506a",
     "mavenUrls": [
+        "../../../build/repos/releases",
         "https://motormotion.laser3284.org/repos/releases"
     ],
     "jsonUrl": "https://motormotion.laser3284.org/MotorMotion.json",
