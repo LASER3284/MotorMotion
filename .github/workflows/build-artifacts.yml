@@ -32,5 +32,45 @@ jobs:
           name: linux-athena
           path: "build/repos/releases/com/laser3284/MotorMotion"
 
+      - name: Grant execute permissions to example builder
+        run: chmod +x ./build-examples.sh
+        working-directory: ./examples
+
+      - name: Build examples
+        run: ./build-examples.sh
+        working-directory: ./examples
+
   # TODO: Implement windows desktop builds
   # TODO: Implement macOS desktop builds
+
+  generate-docs:
+    name: Generate doxygen docs
+    runs-on: ubuntu-22.04
+    
+    needs: [build-linux]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      - name: Checkout doxygen-awesome-css
+        uses: actions/checkout@v2
+        with:
+          # Checks out https://github.com/jothepro/doxygen-awesome-css from github
+          repository: jothepro/doxygen-awesome-css
+          path: doxygen-awesome-css
+
+      - name: Download doxygen
+        run: curl -OL https://www.doxygen.nl/files/doxygen-1.9.5.linux.bin.tar.gz
+
+      - name: Extract doxygen
+        run: tar -xvf doxygen-1.9.5.linux.bin.tar.gz
+
+      - name: Generate doxygen via doxyfile
+        run: ./doxygen-1.9.5/bin/doxygen ./Doxyfile
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cpp-docs
+          path: ./docs
