@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "MotorMotion", "index.html", [
-    [ "Deprecated List", "deprecated.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -56,7 +55,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_motor_motion_8h.html",
-"classlaser_1_1talonfx_1_1_talon_f_x_motion.html#ac0a7df1206574495696c210ca25b1e99"
+"classlaser_1_1talonfx_1_1_talon_f_x_motion.html#ac8045198abfa72deaac2ef8d449dfa01"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

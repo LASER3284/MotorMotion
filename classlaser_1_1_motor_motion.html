@@ -141,12 +141,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16e4a7c9c55386ee5f3c6b25d7c17d8f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlaser_1_1_motor_motion.html#a16e4a7c9c55386ee5f3c6b25d7c17d8f">SetMotorInverted</a> (bool)</td></tr>
 <tr class="memdesc:a16e4a7c9c55386ee5f3c6b25d7c17d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the motor is to spin opposite of the default direction.  <a href="classlaser_1_1_motor_motion.html#a16e4a7c9c55386ee5f3c6b25d7c17d8f">More...</a><br /></td></tr>
 <tr class="separator:a16e4a7c9c55386ee5f3c6b25d7c17d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7105e6b5e99864e169fede658bc6bae6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlaser_1_1_motor_motion.html#a7105e6b5e99864e169fede658bc6bae6">SetClosedLoopRampRate</a> (double)</td></tr>
-<tr class="memdesc:a7105e6b5e99864e169fede658bc6bae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum ramp rate when in a closed feedback loop.  <a href="classlaser_1_1_motor_motion.html#a7105e6b5e99864e169fede658bc6bae6">More...</a><br /></td></tr>
-<tr class="separator:a7105e6b5e99864e169fede658bc6bae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7faa8dffa8614140221c04145ef2a403"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlaser_1_1_motor_motion.html#a7faa8dffa8614140221c04145ef2a403">SetOpenLoopRampRate</a> (double)</td></tr>
-<tr class="memdesc:a7faa8dffa8614140221c04145ef2a403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum ramp rate when in an open feedback loop.  <a href="classlaser_1_1_motor_motion.html#a7faa8dffa8614140221c04145ef2a403">More...</a><br /></td></tr>
-<tr class="separator:a7faa8dffa8614140221c04145ef2a403"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5962facbf2eaf064560d826530337e8d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlaser_1_1_motor_motion.html#a5962facbf2eaf064560d826530337e8d">SetPIDValues</a> (double, double, double, double)</td></tr>
 <tr class="memdesc:a5962facbf2eaf064560d826530337e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the PIDF values for the controller; each setpoint type has its own PID values, this will feed it to the currently active one (default/none: they all get the same PID values)  <a href="classlaser_1_1_motor_motion.html#a5962facbf2eaf064560d826530337e8d">More...</a><br /></td></tr>
 <tr class="separator:a5962facbf2eaf064560d826530337e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -706,7 +700,7 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
 <p>Returns the motor amperage. </p>
 <dl class="section return"><dt>Returns</dt><dd>units::ampere_t representing the motor amperage in Amperes </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a33b4774e8f9a405e0dc9286311ba3255">laser::talonfx::TalonFXMotion</a>.</p>
+<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a15ad2f0f4e3f156e155992f70cf13329">laser::talonfx::TalonFXMotion</a>.</p>
 
 </div>
 </div>
@@ -768,7 +762,7 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
 <p>Returns the motor voltage. </p>
 <dl class="section return"><dt>Returns</dt><dd>units::volt_t representing the motor voltage in Volts </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#af645d374210b380e52a62b573a0053a5">laser::talonfx::TalonFXMotion</a>.</p>
+<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a718101c49da3c96243ff24ad701e5cfe">laser::talonfx::TalonFXMotion</a>.</p>
 
 </div>
 </div>
@@ -862,7 +856,7 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
 <p>Returns the raw number of encoder counts that have been traveled. </p>
 <dl class="section return"><dt>Returns</dt><dd>Integer value representing the number of encoder counts </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a2f141e3e444ee29a70597dfe1bc62163">laser::talonfx::TalonFXMotion</a>.</p>
+<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a599fe6fddfbbcec0d347b0f83aad13f1">laser::talonfx::TalonFXMotion</a>.</p>
 
 </div>
 </div>
@@ -1127,44 +1121,6 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
 
 </div>
 </div>
-<a id="a7105e6b5e99864e169fede658bc6bae6" name="a7105e6b5e99864e169fede658bc6bae6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7105e6b5e99864e169fede658bc6bae6">&#9670;&#160;</a></span>SetClosedLoopRampRate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ErrorEnum , class MotorType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="classlaser_1_1_motor_motion.html">laser::MotorMotion</a>&lt; ErrorEnum, MotorType &gt;::SetClosedLoopRampRate </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the maximum ramp rate when in a closed feedback loop. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rate</td><td>The ramp rate, in seconds, for the closed feedback loop </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#a7117d6fccd2296c71886f274a40f37ff">laser::talonfx::TalonFXMotion</a>.</p>
-
-</div>
-</div>
 <a id="a6adfe2ed5cf36b89fe447ab1e6868031" name="a6adfe2ed5cf36b89fe447ab1e6868031"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6adfe2ed5cf36b89fe447ab1e6868031">&#9670;&#160;</a></span>SetClosedRampRate()</h2>
 
@@ -1315,46 +1271,6 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
 
 </div>
 </div>
-<a id="a7faa8dffa8614140221c04145ef2a403" name="a7faa8dffa8614140221c04145ef2a403"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7faa8dffa8614140221c04145ef2a403">&#9670;&#160;</a></span>SetOpenLoopRampRate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ErrorEnum , class MotorType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="classlaser_1_1_motor_motion.html">laser::MotorMotion</a>&lt; ErrorEnum, MotorType &gt;::SetOpenLoopRampRate </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the maximum ramp rate when in an open feedback loop. </p>
-<p >This does not affect the PIDF controller, but is can be used when something needs to stop relatively quickly or slowly. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rate</td><td>The ramp rate, in seconds, for the open feedback loop </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This method is deprecated, please use <a class="el" href="classlaser_1_1_motor_motion.html#ab72318531e57908da1da6c28af586d09" title="Sets the max speed the open loop controller is allowed to set the motor voltage; this will limit how ...">SetOpenRampRate(units::second_t)</a>. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classlaser_1_1_motor_motion.html#ab72318531e57908da1da6c28af586d09" title="Sets the max speed the open loop controller is allowed to set the motor voltage; this will limit how ...">SetOpenRampRate()</a> </dd></dl>
-
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#ad77da0333339f8e9871022702bc4b4c5">laser::talonfx::TalonFXMotion</a>.</p>
-
-</div>
-</div>
 <a id="ab72318531e57908da1da6c28af586d09" name="ab72318531e57908da1da6c28af586d09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab72318531e57908da1da6c28af586d09">&#9670;&#160;</a></span>SetOpenRampRate()</h2>
 
@@ -1501,7 +1417,7 @@ template&lt;typename ErrorEnum , class MotorType &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#aa0dc96b826444f76feef3cfdc286d54a">laser::talonfx::TalonFXMotion</a>.</p>
+<p>Reimplemented in <a class="el" href="classlaser_1_1talonfx_1_1_talon_f_x_motion.html#aa337155ef2223c38b1bdc73b62c08a2d">laser::talonfx::TalonFXMotion</a>.</p>
 
 </div>
 </div>
