@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   # Build the code for the roboRIO
-build-docker:
+  build-docker:
     strategy:
       fail-fast: false
       matrix:
@@ -60,7 +60,7 @@ build-docker:
   # TODO: Implement windows desktop builds
   # TODO: Implement macOS desktop builds
 
-  # Combine all of the outputs to a zip
+  # Combine all of the outputs to an artifact
   combine:
     name: Combine outputs
     needs: [build-docker]
@@ -89,6 +89,7 @@ build-docker:
         run: ./gradlew publish -Pthirdparty -PreleaseRepoPublish
         working-directory: combiner
       
+      - name: Upload maven builds
       - uses: actions/upload-artifact@v3
         with:
           name: maven_builds
