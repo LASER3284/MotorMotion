@@ -5,32 +5,40 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
-    name: Build roboRIO Java/C++ and Linux Desktop
-    runs-on: ubuntu-22.04
-    container: wpilib/roborio-cross-ubuntu:2023-22.04
-
+  build-docker:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - container: wpilib/roborio-cross-ubuntu:2023-22.04
+            artifact-name: Athena
+            build-options: "-Ponlylinuxathena"
+          - container: wpilib/raspbian-cross-ubuntu:bullseye-22.04
+            artifact-name: Arm32
+            build-options: "-Ponlylinuxarm32"
+          - container: wpilib/aarch64-cross-ubuntu:bullseye-22.04
+            artifact-name: Arm64
+            build-options: "-Ponlylinuxarm64"
+          - container: wpilib/ubuntu-base:22.04
+            artifact-name: Linux
+            build-options: ""
+    name: "Build - ${{ matrix.artifact-name }}"
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+    
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Install roboRIO toolchain
-        run: ./gradlew installRoboRIOToolchain
-
-      - name: Compile binaries
-        run: ./gradlew build
-
-      - name: Publish
-        run: ./gradlew publish
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - uses: actions/checkout@v3
         with:
-          name: linux-athena
-          path: "build/repos/releases/com/laser3284/MotorMotion"
+          submodules: true
+      
+      - name: Build with Gradle
+        run: ./gradlew build --max-workers 1 -PbuildServer ${{ matrix.build-options }}
+      
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: build/allOutputs
 
       - name: Grant execute permissions to example builder
         run: chmod +x ./build-examples.sh
@@ -39,7 +47,7 @@ jobs:
       - name: Build examples
         run: ./build-examples.sh
         working-directory: ./examples
-
+  
   # TODO: Implement windows desktop builds
   # TODO: Implement macOS desktop builds
 
@@ -47,7 +55,7 @@ jobs:
     name: Generate doxygen docs
     runs-on: ubuntu-22.04
     
-    needs: [build-linux]
+    needs: [build-docker]
 
     steps:
       - name: Checkout repo
