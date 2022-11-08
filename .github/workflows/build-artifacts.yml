@@ -13,40 +13,35 @@ jobs:
           - container: wpilib/roborio-cross-ubuntu:2023-22.04
             artifact-name: Athena
             build-options: "-Ponlylinuxathena"
+          
           - container: wpilib/raspbian-cross-ubuntu:bullseye-22.04
             artifact-name: Arm32
             build-options: "-Ponlylinuxarm32"
+          
           - container: wpilib/aarch64-cross-ubuntu:bullseye-22.04
             artifact-name: Arm64
             build-options: "-Ponlylinuxarm64"
+          
           - container: wpilib/ubuntu-base:22.04
             artifact-name: Linux
             build-options: ""
+    
     name: "Build - ${{ matrix.artifact-name }}"
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     
     steps:
-      - name: Checkout repo
       - uses: actions/checkout@v3
         with:
           submodules: true
       
       - name: Build with Gradle
-        run: ./gradlew build --max-workers 1 -PbuildServer ${{ matrix.build-options }}
+        run: ./gradlew build --max-workers 1 -PbuildServer -PreleaseMode ${{ matrix.build-options }}
       
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.artifact-name }}
           path: build/allOutputs
-
-      - name: Grant execute permissions to example builder
-        run: chmod +x ./build-examples.sh
-        working-directory: ./examples
-
-      - name: Build examples
-        run: ./build-examples.sh
-        working-directory: ./examples
   
   # TODO: Implement windows desktop builds
   # TODO: Implement macOS desktop builds
