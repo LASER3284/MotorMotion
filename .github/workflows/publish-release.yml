@@ -84,7 +84,7 @@ jobs:
         working-directory: combiner
       
       - name: Upload maven builds
-      - uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: maven_builds
           path: ~/releases
