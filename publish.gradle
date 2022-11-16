@@ -4,7 +4,7 @@ ext.licenseFile = files("$rootDir/COPYING.txt")
 
 def pubVersion = '0.0.1-rc0'
 
-def outputsFolder = file("$buildDir/allOutputs")
+def outputsFolder = file("$buildDir/output")
 
 def versionFile = file("$outputsFolder/version.txt")
 
@@ -28,7 +28,9 @@ task libraryBuild() {}
 build.dependsOn outputVersions
 
 task copyAllOutputs(type: Copy) {
-    destinationDir outputsFolder
+    destinationDir file("$buildDir/allOutputs")
+    from versionFile
+    dependsOn outputVersions
 }
 
 build.dependsOn copyAllOutputs
@@ -62,7 +64,7 @@ task cppHeadersZip(type: Zip) {
 task cppSourceZip(type: Zip) {
     destinationDirectory = outputsFolder
     archiveBaseName = zipBaseName
-    classifier = "source"
+    classifier = "sources"
 
     from(licenseFile) {
         into '/'
@@ -79,56 +81,31 @@ addTaskToCopyAllOutputs(cppHeadersZip)
 build.dependsOn cppSourceZip
 addTaskToCopyAllOutputs(cppSourceZip)
 
-/* TODO-JAVA:
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+def motormotionFileInput = file("src/generate/MotorMotion.json.in")
+ext.motormotionFileOutput = file("$buildDir/generated/vendordeps/MotorMotion.json")
+
+task generateVendorJson() {
+    description = "Generates the vendor JSON file"
+    group = "MotorMotion"
+
+    outputs.file motormotionFileOutput
+    inputs.file motormotionFileInput
+
+    doLast {
+        println "Writing version ${pubVersion} to $motormotionFileOutput"
+
+        if (motormotionFileOutput.exists()) {
+            motormotionFileOutput.delete()
+        }
+        def read = motormotionFileInput.text.replace('${mm_version}', pubVersion)
+        motormotionFileOutput.write(read)
+    }
+
+    outputs.upToDateWhen { false }
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-task outputJar(type: Jar, dependsOn: classes) {
-    archiveBaseName = javaBaseName
-    destinationDirectory = outputsFolder
-    from sourceSets.main.output
-}
-
-task outputSourcesJar(type: Jar, dependsOn: classes) {
-    archiveBaseName = javaBaseName
-    destinationDirectory = outputsFolder
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task outputJavadocJar(type: Jar, dependsOn: javadoc) {
-    archiveBaseName = javaBaseName
-    destinationDirectory = outputsFolder
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
- TODO-JAVA:
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-    archives outputJar
-    archives outputSourcesJar
-    archives outputJavadocJar
-}
-
-addTaskToCopyAllOutputs(outputSourcesJar)
-addTaskToCopyAllOutputs(outputJavadocJar)
-addTaskToCopyAllOutputs(outputJar)
-
-build.dependsOn outputSourcesJar
-build.dependsOn outputJavadocJar
-build.dependsOn outputJar
-*/
 
 libraryBuild.dependsOn build
+libraryBuild.dependsOn generateVendorJson
 
 def releasesRepoUrl = "$buildDir/repos/releases"
 

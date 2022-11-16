@@ -5,6 +5,7 @@ on:
     branches:
       # This should always point to the "main" current branch, so that way any push to the main branch publishes a new release
       - "2022"
+      - "2023"
   workflow_dispatch:
 
 
