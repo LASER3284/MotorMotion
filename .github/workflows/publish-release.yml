@@ -45,7 +45,7 @@ jobs:
           submodules: true
       
       - name: Build with Gradle
-        run: ./gradlew publish --max-workers 1 -PbuildServer -PreleaseMode ${{ matrix.build-options }}
+        run: ./gradlew build --max-workers 1 -PbuildServer -PreleaseMode ${{ matrix.build-options }}
       
       - uses: actions/upload-artifact@v3
         with:
