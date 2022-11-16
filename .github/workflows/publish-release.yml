@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-22.04
     
     # This requires that the linux build succeed before generating doxygen docs
-    needs: [combine]
+    needs: [combine, generate-vendordep]
 
     steps:
       - name: Checkout repo
