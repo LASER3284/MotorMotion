@@ -45,13 +45,32 @@ jobs:
           submodules: true
       
       - name: Build with Gradle
-        run: ./gradlew build --max-workers 1 -PbuildServer -PreleaseMode ${{ matrix.build-options }}
+        run: ./gradlew publish --max-workers 1 -PbuildServer -PreleaseMode ${{ matrix.build-options }}
       
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.artifact-name }}
           path: build/allOutputs
-  
+
+  generate-vendordep:
+    name: "Generate vendordep JSON"
+    runs-on: ubuntu-latest
+    container: wpilib/roborio-cross-ubuntu:2023-22.04
+    needs: [build-docker]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      
+      - name: Build with Gradle
+        run: ./gradlew generateVendorJson
+      
+      - uses: actions/upload-artifact@v3
+        with:
+          name: MotorMotion.json
+          path: build/generated/vendordeps/MotorMotion.json
+
   # TODO: Implement windows desktop builds
   # TODO: Implement macOS desktop builds
 
@@ -153,8 +172,14 @@ jobs:
         working-directory: ./gh-pages/repos/releases/
 
       # Now we're going to properly publish the main github pages page.
+      - name: Download vendordep JSON artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: MotorMotion.json
+          path: ./MotorMotion.json
+      
       - name: Move vendordep JSON file
-        run: sudo mv MotorMotion.json ./docs/
+        run: sudo mv ./MotorMotion.json ./docs/
       
       # Move our built binaries to the ./docs/repos
       - name: Move built binaries
