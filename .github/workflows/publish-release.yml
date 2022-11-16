@@ -176,14 +176,20 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: MotorMotion.json
-          path: ./MotorMotion.json
+          path: ./
       
       - name: Move vendordep JSON file
         run: sudo mv ./MotorMotion.json ./docs/
-      
+
+      - name: Delete old metadata
+        run: sudo rm -rf ./gh-pages/repos/releases/com
+
+      - name: Move merged metadata
+        run: sudo mv ./gh-pages/repos/releases/maven/release ./gh-pages/repos/releases/
+
       # Move our built binaries to the ./docs/repos
       - name: Move built binaries
-        run: sudo cp -a ./gh-pages/repos ./docs/repos
+        run: sudo cp -a ./gh-pages/repos/ ./docs/repos
 
       - name: Move CNAME file
         run: sudo mv CNAME ./docs/
