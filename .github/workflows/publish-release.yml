@@ -185,7 +185,7 @@ jobs:
         run: sudo rm -rf ./gh-pages/repos/releases/com
 
       - name: Move merged metadata
-        run: sudo mv ./gh-pages/repos/releases/maven/release ./gh-pages/repos/releases/
+        run: sudo cp -Rf ./gh-pages/repos/releases/maven/release ./gh-pages/repos/releases/
 
       # Move our built binaries to the ./docs/repos
       - name: Move built binaries
