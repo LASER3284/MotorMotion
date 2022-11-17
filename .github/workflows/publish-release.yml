@@ -176,10 +176,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: MotorMotion.json
-          path: ./
+          path: ./MotorMotion.json
       
       - name: Move vendordep JSON file
-        run: sudo mv ./MotorMotion.json ./docs/
+        run: sudo mv ./MotorMotion.json/MotorMotion.json ./docs/
 
       - name: Delete old metadata
         run: sudo rm -rf ./gh-pages/repos/releases/com
