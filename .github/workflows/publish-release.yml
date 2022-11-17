@@ -169,7 +169,7 @@ jobs:
 
       - name: Move downloaded maven_builds
         run: |
-          mv ./gh-pages/repos/releases/maven/* ./gh-pages/repos/releases/
+          cp -a ./gh-pages/repos/releases/maven/* ./gh-pages/repos/releases/
           rm -rf ./gh-pages/repos/releases/maven
 
       - name: Update metadata
