@@ -174,7 +174,7 @@ jobs:
 
       - name: Update metadata
         run: java -jar MavenMetaDataFixer.jar
-        working-directory: ./gh-pages/repos/releases/
+        working-directory: ./gh-pages/repos/releases/release
 
       # Now we're going to properly publish the main github pages page.
       - name: Download vendordep JSON artifact
