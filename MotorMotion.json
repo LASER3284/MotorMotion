@@ -4,7 +4,7 @@
     "version": "2023.0.1-rc1",
     "uuid": "c5724703-68f2-4cc9-840b-9f6421aa506a",
     "mavenUrls": [
-        "https://motormotion.laser3284.org/repos/releases"
+        "https://motormotion.laser3284.org/repos/releases/release"
     ],
     "jsonUrl": "https://motormotion.laser3284.org/MotorMotion.json",
     "javaDependencies": [],
